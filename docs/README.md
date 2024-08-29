@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /hero.png
+heroImage: /caravan-logo-transparent.png
 actionText: Get Started →
 actionLink: /introduction/
 features:
