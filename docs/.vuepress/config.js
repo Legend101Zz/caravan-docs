@@ -58,5 +58,7 @@ module.exports = {
         ],
       },
     ],
+    head: [["link", { rel: "stylesheet", href: "/styles/custom.css" }]],
+    logo: "/caravan-logo-transparent.png",
   },
 };

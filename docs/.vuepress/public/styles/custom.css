@@ -1,0 +1,91 @@
+:root
+--c-bg: #f8f9fa
+--c-bg-light: #ffffff
+--c-bg-lighter: #f3f4f5
+--c-bg-navbar: #1a2b42
+--c-bg-sidebar: #f0f4f8
+--c-bg-arrow: #cccccc
+--c-text: #2c3e50
+--c-text-accent: #3d9de1
+--c-text-light: #3a5169
+--c-text-lighter: #4e6e8e
+--c-text-lightest: #6a8bad
+--c-text-quote: #999999
+--c-border: #eaecef
+--c-border-dark: #dfe2e5
+--c-tip: #42b983
+--c-tip-bg: #e2f5ec
+--c-tip-title: #359469
+--c-warning: #e7c000
+--c-warning-bg: #fffae3
+--c-warning-title: #b29400
+--c-danger: #cc0000
+--c-danger-bg: #ffe0e0
+--c-danger-title: #990000
+--c-badge-tip: #42b983
+--c-badge-warning: #e7c000
+--c-badge-danger: #cc0000
+
+// Layout
+.theme-container
+background-color var(--c-bg)
+
+// Navbar
+.navbar
+background-color var(--c-bg-navbar)
+border-bottom 1px solid var(--c-border-dark)
+.site-name
+  color #ffffff
+.nav-links a
+  color #ffffff
+
+// Sidebar
+.sidebar
+background-color var(--c-bg-sidebar)
+border-right 1px solid var(--c-border)
+
+// Content
+.theme-default-content
+code
+  background-color #f0f2f5
+  color var(--c-text-light)
+
+// Code blocks
+div[class*="language-"]
+background-color #282c34
+pre, pre[class*="language-"]
+  color #abb2bf
+
+// Custom block
+.custom-block
+&.tip
+  background-color var(--c-tip-bg)
+  border-color var(--c-tip)
+
+// Button
+.action-button
+background-color var(--c-text-accent)
+border-bottom 1px solid darken(#3d9de1, 10%)
+color #ffffff
+
+// Override inline code style
+.theme-default-content code
+color var(--c-text-accent)
+padding 0.25rem 0.5rem
+margin 0
+font-size 0.85em
+background-color rgba(27,31,35,0.05)
+border-radius 3px
+
+// Home page styles
+.home
+.hero
+  img
+    max-height 280px
+  .description
+    color var(--c-text-lighter)
+.feature
+  h2
+    color var(--c-text-accent)
+  p
+    color var(--c-text-light)

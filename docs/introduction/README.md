@@ -23,5 +23,3 @@ Caravan offers several advantages for Bitcoin developers:
 In the following sections, we'll dive deeper into Caravan's structure and key concepts, providing you with a solid foundation for working with this powerful toolkit.
 
 <CodeSandbox id="caravan-intro-example-xyz123" />
-
-(Note: Replace "caravan-intro-example-xyz123" with an actual CodeSandbox ID once you've created an example)
