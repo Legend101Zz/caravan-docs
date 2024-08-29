@@ -1,97 +1,65 @@
 <template>
   <header class="navbar">
-    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
+    <ToggleSidebarButton
+      v-if="shouldShowSidebarButton"
+      @toggle="$emit('toggle-sidebar')"
+    />
 
-    <RouterLink :to="$localePath" class="home-link">
+    <RouterLink :to="siteBrandLink">
       <img
+        v-if="siteBrandLogo"
         class="logo"
-        v-if="$site.themeConfig.logo"
-        :src="$withBase($site.themeConfig.logo)"
-        :alt="$siteTitle"
+        :src="withBase(siteBrandLogo)"
+        :alt="siteBrandTitle"
       />
       <span
-        ref="siteName"
+        v-if="siteBrandTitle"
         class="site-name"
-        v-if="$siteTitle"
-        :class="{ 'can-hide': $site.themeConfig.logo }"
-        >{{ $siteTitle }}</span
+        :class="{ 'can-hide': siteBrandLogo }"
+        >{{ siteBrandTitle }}</span
       >
     </RouterLink>
 
-    <div
-      class="links"
-      :style="
-        linksWrapMaxWidth
-          ? {
-              'max-width': linksWrapMaxWidth + 'px',
-            }
-          : {}
-      "
-    >
+    <div class="navbar-items-wrapper" :style="navbarBgColor">
+      <slot name="before" />
+      <NavbarItems />
+      <slot name="after" />
       <ToggleDarkMode />
-      <AlgoliaSearchBox v-if="isAlgoliaSearch" :options="algolia" />
-      <SearchBox
-        v-else-if="
-          $site.themeConfig.search !== false &&
-          $page.frontmatter.search !== false
-        "
-      />
-      <NavLinks class="can-hide" />
     </div>
   </header>
 </template>
 
-<script>
-import AlgoliaSearchBox from "@AlgoliaSearchBox";
-import SearchBox from "@SearchBox";
-import SidebarButton from "@theme/components/SidebarButton.vue";
-import NavLinks from "@theme/components/NavLinks.vue";
+<script setup>
+import { computed } from "vue";
+import {
+  useRouteLocale,
+  useSiteLocaleData,
+  useThemeLocaleData,
+} from "@vuepress/client";
+import { useThemeData } from "@vuepress/plugin-theme-data/client";
+import NavbarItems from "@theme/NavbarItems.vue";
+import ToggleSidebarButton from "@theme/ToggleSidebarButton.vue";
+import ToggleDarkMode from "./ToggleDarkMode.vue";
 
-export default {
-  components: { SidebarButton, NavLinks, SearchBox, AlgoliaSearchBox },
+const routeLocale = useRouteLocale();
+const siteLocale = useSiteLocaleData();
+const themeLocale = useThemeLocaleData();
+const themeData = useThemeData();
 
-  data() {
-    return {
-      linksWrapMaxWidth: null,
-    };
-  },
+const siteBrandLink = computed(
+  () => themeLocale.value.home || routeLocale.value
+);
+const siteBrandLogo = computed(() => themeLocale.value.logo);
+const siteBrandTitle = computed(() => siteLocale.value.title);
 
-  computed: {
-    algolia() {
-      return (
-        this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
-      );
-    },
+const shouldShowSidebarButton = computed(
+  () => themeData.value.toggleSidebar ?? true
+);
 
-    isAlgoliaSearch() {
-      return this.algolia && this.algolia.apiKey && this.algolia.indexName;
-    },
-  },
-
-  mounted() {
-    const MOBILE_DESKTOP_BREAKPOINT = 719; // refer to config.styl
-    const NAVBAR_VERTICAL_PADDING =
-      parseInt(css(this.$el, "paddingLeft")) +
-      parseInt(css(this.$el, "paddingRight"));
-    const handleLinksWrapWidth = () => {
-      if (document.documentElement.clientWidth < MOBILE_DESKTOP_BREAKPOINT) {
-        this.linksWrapMaxWidth = null;
-      } else {
-        this.linksWrapMaxWidth =
-          this.$el.offsetWidth -
-          NAVBAR_VERTICAL_PADDING -
-          ((this.$refs.siteName && this.$refs.siteName.offsetWidth) || 0);
-      }
-    };
-    handleLinksWrapWidth();
-    window.addEventListener("resize", handleLinksWrapWidth, false);
-  },
-};
-
-function css(el, property) {
-  // NOTE: Known bug, will return 'auto' if style value is 'auto'
-  const win = el.ownerDocument.defaultView;
-  // null means not to return pseudo styles
-  return win.getComputedStyle(el, null)[property];
-}
+const navbarBgColor = computed(() => {
+  const cssVar = themeData.value.darkMode
+    ? "--c-bg-navbar-dark"
+    : "--c-bg-navbar";
+  return { backgroundColor: `var(${cssVar})` };
+});
 </script>

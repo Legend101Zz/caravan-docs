@@ -1,7 +1,11 @@
+const path = require("path");
+
 module.exports = {
   title: "Caravan Documentation",
   description: "Comprehensive guide for Caravan developers",
+  theme: "@vuepress/theme-default",
   themeConfig: {
+    logo: "/caravan-logo-transparent.png",
     nav: [
       { text: "Home", link: "/" },
       { text: "Guide", link: "/introduction/" },
@@ -107,8 +111,8 @@ module.exports = {
         ],
       },
     ],
-    head: [["link", { rel: "stylesheet", href: "/styles/custom.css" }]],
-    logo: "/caravan-logo-transparent.png",
-    darkMode: true,
+  },
+  alias: {
+    "@theme/Navbar.vue": path.resolve(__dirname, "./components/Navbar.vue"),
   },
 };

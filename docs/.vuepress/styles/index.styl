@@ -32,6 +32,13 @@ background-color var(--c-bg)
 
 // Navbar
 .navbar
+  .toggle-dark-mode
+    .toggle-label
+      color var(--c-text)
+    .slider
+      background-color var(--c-text-lightest)
+    input:checked + .slider
+      background-color var(--c-text-accent)
 background-color var(--c-bg-navbar)
 border-bottom 1px solid var(--c-border-dark)
 .site-name
@@ -117,7 +124,13 @@ html.dark
   --c-danger-title: #ff6666
 
   .navbar
-    border-bottom-color var(--c-border-dark)
+    .toggle-dark-mode
+      .toggle-label
+        color var(--c-text)
+      .slider
+        background-color var(--c-text-lighter)
+      input:checked + .slider
+        background-color var(--c-text-accent)
 
   .sidebar
     border-right-color var(--c-border)

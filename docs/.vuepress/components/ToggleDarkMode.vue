@@ -1,33 +1,56 @@
 <template>
-  <div class="toggle-dark-mode">
-    <span class="toggle-label">Dark Mode</span>
-    <label class="toggle-switch">
-      <input type="checkbox" @change="toggleDarkMode" :checked="isDarkMode" />
-      <span class="slider"></span>
-    </label>
-  </div>
+  <button class="toggle-dark-mode" @click="toggleDarkMode">
+    <span class="toggle-dark-mode-text">{{ darkMode ? "Light" : "Dark" }}</span>
+    <span class="toggle-dark-mode-icon">{{ darkMode ? "☀️" : "🌙" }}</span>
+  </button>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isDarkMode: false,
-    };
-  },
-  mounted() {
-    this.isDarkMode = document.documentElement.classList.contains("dark");
-  },
-  methods: {
-    toggleDarkMode() {
-      const htmlElement = document.documentElement;
-      htmlElement.classList.toggle("dark");
-      this.isDarkMode = htmlElement.classList.contains("dark");
-      localStorage.setItem(
-        "vuepress-color-scheme",
-        this.isDarkMode ? "dark" : "light"
-      );
-    },
-  },
+<script setup>
+import { ref, onMounted, watch } from "vue";
+import { useThemeData } from "@vuepress/plugin-theme-data/client";
+
+const themeData = useThemeData();
+const darkMode = ref(false);
+
+const toggleDarkMode = () => {
+  darkMode.value = !darkMode.value;
+  document.documentElement.classList.toggle("dark", darkMode.value);
+  localStorage.setItem(
+    "vuepress-color-scheme",
+    darkMode.value ? "dark" : "light"
+  );
 };
+
+onMounted(() => {
+  darkMode.value = document.documentElement.classList.contains("dark");
+});
+
+watch(
+  () => themeData.value.darkMode,
+  (val) => {
+    if (val !== darkMode.value) {
+      toggleDarkMode();
+    }
+  }
+);
 </script>
+
+<style scoped>
+.toggle-dark-mode {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--c-text);
+}
+
+.toggle-dark-mode-text {
+  margin-right: 0.5rem;
+}
+
+.toggle-dark-mode-icon {
+  font-size: 1.2rem;
+}
+</style>
