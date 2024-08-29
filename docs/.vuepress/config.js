@@ -12,17 +12,32 @@ module.exports = {
         title: "Introduction",
         path: "/introduction/",
         children: [
-          "/introduction/monorepo-structure",
-          "/introduction/key-concepts",
+          {
+            title: "Monorepo Structure",
+            path: "/introduction/monorepo-structure",
+          },
+          {
+            title: "Key Concepts",
+            path: "/introduction/key-concepts",
+          },
         ],
       },
       {
         title: "Getting Started",
         path: "/getting-started/",
         children: [
-          "/getting-started/prerequisites",
-          "/getting-started/setup",
-          "/getting-started/building-and-running",
+          {
+            title: "Prerequisites",
+            path: "/getting-started/prerequisites",
+          },
+          {
+            title: "Setup",
+            path: "/getting-started/setup",
+          },
+          {
+            title: "Building and Running",
+            path: "/getting-started/building-and-running",
+          },
         ],
       },
       {
@@ -33,32 +48,67 @@ module.exports = {
             title: "@caravan/bitcoin",
             path: "/packages/bitcoin/",
             children: [
-              "/packages/bitcoin/addresses-and-keys",
-              "/packages/bitcoin/transactions",
+              {
+                title: "Addresses and Keys",
+                path: "/packages/bitcoin/addresses-and-keys",
+              },
+              {
+                title: "Transactions",
+                path: "/packages/bitcoin/transactions",
+              },
             ],
           },
           {
             title: "@caravan/fees",
             path: "/packages/fees/",
             children: [
-              "/packages/fees/transaction-analysis",
-              "/packages/fees/fee-estimation",
-              "/packages/fees/rbf",
-              "/packages/fees/cpfp",
+              {
+                title: "Transaction Analysis",
+                path: "/packages/fees/transaction-analysis",
+              },
+              {
+                title: "Fee Estimation",
+                path: "/packages/fees/fee-estimation",
+              },
+              {
+                title: "RBF (Replace-By-Fee)",
+                path: "/packages/fees/rbf",
+              },
+              {
+                title: "CPFP (Child-Pays-For-Parent)",
+                path: "/packages/fees/cpfp",
+              },
             ],
           },
           {
             title: "@caravan/psbt",
             path: "/packages/psbt/",
             children: [
-              "/packages/psbt/psbt-basics",
-              "/packages/psbt/creating-and-modifying",
+              {
+                title: "PSBT Basics",
+                path: "/packages/psbt/psbt-basics",
+              },
+              {
+                title: "Creating and Modifying PSBTs",
+                path: "/packages/psbt/creating-and-modifying",
+              },
             ],
+          },
+        ],
+      },
+      {
+        title: "Applications",
+        path: "/applications/",
+        children: [
+          {
+            title: "Caravan Coordinator",
+            path: "/applications/caravan-coordinator",
           },
         ],
       },
     ],
     head: [["link", { rel: "stylesheet", href: "/styles/custom.css" }]],
     logo: "/caravan-logo-transparent.png",
+    darkMode: true,
   },
 };
