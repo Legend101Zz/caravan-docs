@@ -1,0 +1,16 @@
+{
+  "name": "caravan-docs",
+  "version": "1.0.0",
+  "description": "Comprehensive documentation for Caravan",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "keywords": ["caravan", "bitcoin", "documentation"],
+  "author": "Mrigesh Thakur",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.9.7"
+  }
+}
